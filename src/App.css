@@ -13,26 +13,4 @@
 
 }
 
-.header {
-    grid-area: h;
-    background-color: steelblue;
-}
-
-.header img {
-    width: 70px;
-}
-
-.nav {
-    grid-area: n;
-    background-color: lightskyblue;
-}
-
-.content {
-    grid-area: c;
-    background-color: cornflowerblue;
-}
-
-.content img {
-    width: 1200px;
-}
 
