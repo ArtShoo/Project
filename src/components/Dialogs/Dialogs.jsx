@@ -2,33 +2,54 @@ import React from 'react';
 import s from './Dialogs.module.css';
 import {NavLink} from "react-router-dom";
 
+const DialogItem = (props) => {
+    let path = "/dialogs/" + props.id;
+    return (
+        <div className={s.dialog + ' ' + s.active}>
+            <NavLink to={path}>{props.name}</NavLink>
+        </div>
+    )
+}
+
+const Message = (props) => {
+    return (
+        <div className={s.message}>{props.message}</div>
+    )
+}
+
+
 const Dialogs = (props) => {
+
+    let dialogs = [
+    {id:1, name:'Андрей'},
+    {id:2, name: 'Юра'},
+    {id:3, name: 'Александр'},
+    {id:4, name: 'Миша'},
+    {id:5, name: 'Имя'}]
+
+    let messages = [
+        {id:1, message:'Привет'},
+        {id:2, message: 'Как дела?'},
+        {id:3, message: 'Пока'},
+        {id:4, message: 'Пока'},
+        {id:5, message: 'Пока'}]
+
+    let dialogsElements = dialogs.map( d => <DialogItem name={d.name} id={d.id} />);
+
+    let messagesElements = messages.map(m => <Message message={m.message}/>);
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                <div className={s.dialog + ' ' + s.active}>
-                    <NavLink to="/dialogs/1">Андрей</NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to="/dialogs/2">Юра</NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to="/dialogs/3">Александр</NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to="/dialogs/4">Миша</NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to="/dialogs/5">Имя</NavLink>
-                </div>
+                {dialogsElements}
             </div>
             <div className={s.messages}>
-                <div className={s.message}>Привет</div>
-                <div className={s.message}>Как дела?</div>
-                <div className={s.message}>Пока</div>
+                {messagesElements}
             </div>
         </div>
     )
 }
+
+
 
 export default Dialogs;
