@@ -17,12 +17,15 @@ const App = (props) => {
             <Route path='/dialogs'
                    render={() => <Dialogs state={props.state.dialogsPage}/>} />
             <Route path='/profile'
-                   render={() => <Profile state={props.state.profilePage}/>} />
+                   render={() => <Profile
+                       profilePage={props.state.profilePage}
+                       dispatch={props.dispatch}/>} />
         </div>
     </div>
       </BrowserRouter>
 
   );
 }
+
 
 export default App;
