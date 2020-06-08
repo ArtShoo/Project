@@ -1,3 +1,7 @@
+import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
+
 let store = {
     _state: {
         profilePage: {
@@ -9,6 +13,14 @@ let store = {
             newPostText: 'Hello'
         },
         dialogsPage: {
+
+            dialogs: [
+                {id: 1, name: 'Андрей'},
+                {id: 2, name: 'Юра'},
+                {id: 3, name: 'Александр'},
+                {id: 4, name: 'Миша'},
+                {id: 5, name: 'Имя'}
+            ],
             messages: [
                 {id: 1, message: 'Привет'},
                 {id: 2, message: 'Как дела?'},
@@ -16,15 +28,9 @@ let store = {
                 {id: 4, message: 'Пока'},
                 {id: 5, message: 'Пока'}
             ],
-            dialogs: [
-                {id: 1, name: 'Андрей'},
-                {id: 2, name: 'Юра'},
-                {id: 3, name: 'Александр'},
-                {id: 4, name: 'Миша'},
-                {id: 5, name: 'Имя'}
-            ]
-
-        }
+             newMessageBody: ""
+        },
+        sidebar: {}
     },
     _callSubscriber() {
         console.log('State changed');
@@ -37,20 +43,16 @@ let store = {
         this._callSubscriber = observer;
     },
     dispatch(action) {
-        if(action.type === 'ADD-POST') {
-            let newPost = {
-                id: 5,
-                message: this._state.profilePage.newPostText,
-                likesCount: 0
-            };
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber(this._state);
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber(this._state);
-        }
+
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+
+        this._callSubscriber(this._state);
+
     }
+
 }
+
 export default store;
 window.store = store;
